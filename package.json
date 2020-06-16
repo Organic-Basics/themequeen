@@ -1,0 +1,17 @@
+{
+  "name": "themequeen",
+  "version": "1.0.0",
+  "description": "A utility to help build themes for Shopify.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "shopify",
+    "theme",
+    "themekit",
+    "e-commerce"
+  ],
+  "author": "jepster-dk",
+  "license": "ISC"
+}
