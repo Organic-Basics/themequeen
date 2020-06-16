@@ -1,10 +1,10 @@
-# 👸🏻 themequeen 
+# 👸🏻 Themequeen 
 
 *Themekit is dead. Long live Themequeen!*
 
-ThemeQueen is an alternative to Shopify's Themekit, written 100% in Node.js.
+Themequeen is an alternative to Shopify's Themekit, written 100% in Node.js.
 
-![Themequeen in action](https://github.com/Organic-Basics/themequeen/raw/master/themequeen.gif "Themequeen in action")
+![Themequeen in action](https://github.com/Organic-Basics/Themequeen/raw/master/Themequeen.gif "Themequeen in action")
 
 ## Installation
 
@@ -17,10 +17,10 @@ ThemeQueen is an alternative to Shopify's Themekit, written 100% in Node.js.
 
 ## Setup
 
-To start using, you must first _require_ and _initialize_ themequeen
+To start using, you must first _require_ and _initialize_ Themequeen
 
 ```
-const queen = require('../themequeen')
+const queen = require('themequeen')
 
 // See Options for more on how to configure the initializer
 queen.init(opts)
@@ -50,7 +50,7 @@ themename:
 
 #### variables
 
-To promote the user of keeping API keys secret, Themequeen also enforces the use of a `variables` file(no file ending) similarly located in the theme directory.
+To promote the use of keeping API keys secret, Themequeen also enforces the use of a `variables` file (no file ending) similarly located in the theme directory.
 
 ```
 PASSWORD_VAR=123456abcdef
@@ -67,7 +67,7 @@ The following are the possible options for the `init()` function.
   // Which directory to use when watching and deploying files?
   // Also determines the location of the variables and config.yml files. 
   themeDir: 'theme/', 
-  // Changes the speed of themequeen uploads to match Shopify Plus API rate limits
+  // Changes the speed of Themequeen uploads to match Shopify Plus API rate limits
   isShopifyPlus: false
 }
 ```
