@@ -16,8 +16,6 @@ let themeDir = 'theme/'
 // instantiate the watcher
 let watcher
 
-require('dotenv').config({ path: 'theme/variables' })
-
 let fileQueueInterval
 
 const yaml = require('js-yaml');
@@ -33,6 +31,8 @@ let shouldForce = (argv.force === undefined) ? false : true;
 let config
 
 function init(themeDir) {
+  require('dotenv').config({ path: themeDir + 'variables' })
+
   config = yaml.safeLoad(fs.readFileSync(themeDir + 'config.yml', 'utf8'));
   if(config[themeEnv] !== undefined) {
     let themeVals = config[themeEnv]
