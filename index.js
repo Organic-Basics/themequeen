@@ -31,21 +31,29 @@ let shouldForce = (argv.force === undefined) ? false : true;
 let config
 
 function init(themeDir) {
-  require('dotenv').config({ path: themeDir + 'variables' })
+  return new Promise((resolve, reject) => {
+    try {
+      require('dotenv').config({ path: themeDir + 'variables' })
 
-  config = yaml.safeLoad(fs.readFileSync(themeDir + 'config.yml', 'utf8'));
-  if(config[themeEnv] !== undefined) {
-    let themeVals = config[themeEnv]
-    for(let val in themeVals) {
-      if(themeVals[val] !== undefined) {
-          let themeEnvVal = themeVals[val]
-          let themeName = themeEnvVal.replace(/[\{\}\$]/g, '')
-          let themeVal = process.env[themeName]
-          if(val === 'theme_id') themeVal = parseInt(themeVal)
-          themeSettings[val] = themeVal
+      config = yaml.safeLoad(fs.readFileSync(themeDir + 'config.yml', 'utf8'))
+      if(config[themeEnv] !== undefined) {
+        let themeVals = config[themeEnv]
+        for(let val in themeVals) {
+          if(themeVals[val] !== undefined) {
+              let themeEnvVal = themeVals[val]
+              let themeName = themeEnvVal.replace(/[\{\}\$]/g, '')
+              let themeVal = process.env[themeName]
+              if(val === 'theme_id') themeVal = parseInt(themeVal)
+              themeSettings[val] = themeVal
+          }
+        }
       }
+
+      resolve('ThemeQueen init successfully finished.')
+    } catch(err) {
+      reject(err)
     }
-  }
+  })
 }
 
 function startFileQueue() {
