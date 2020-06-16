@@ -19,7 +19,7 @@ const yaml = require('js-yaml');
 // Gets the arguments passed via the command line, such as '--env test-dk'
 const argv = require('yargs').argv;
 // Get the specified --env argument, if present. If not, then just use 'development'
-let themeEnv = (argv.tqenv === undefined) ? 'development' : argv.env;
+let themeEnv = (argv.tqenv === undefined) ? 'development' : argv.tqenv;
 // Get the specified argument, if present. If not, then just set to false
 let shouldOpen = (argv.tqopen === undefined) ? false : true;
 let shouldForce = (argv.tqforce === undefined) ? false : true;
@@ -27,13 +27,11 @@ let shouldForce = (argv.tqforce === undefined) ? false : true;
 // Default settings is development
 let themeSettings = { name: 'development' }
 let config
-let themeDir
+let themeDir = 'theme/'
 
 function init(opts) {
-  if(!opts.themeDir) themeDir = 'theme/'
+  if(opts.themeDir) themeDir = opts.themeDir
   if(opts.isShopifyPlus) fileQueueRateLimit = 250
-
-    console.log(fileQueueRateLimit + themeDir)
 
   return new Promise((resolve, reject) => {
     try {
@@ -348,6 +346,7 @@ var watchQueue = []
 async function watch(newThemeSettings) {
   if(!newThemeSettings) newThemeSettings = themeSettings
   return new Promise((resolve, reject) => {
+    console.log(newThemeSettings)
     confirmTheme(newThemeSettings).then((response) => {
       startFileQueue()
       console.log('👸 is pleased. '.green + 'Started watching files in the "' + themeDir + '" directory.')
