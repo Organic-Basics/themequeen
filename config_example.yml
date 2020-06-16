@@ -1,0 +1,9 @@
+development:
+  password: ${DEVELOPMENT_PASSWORD}
+  theme_id: ${DEVELOPMENT_THEMEID}
+  store: ${DEVELOPMENT_URL}
+
+production:
+  password: ${PRODUCTION_PASSWORD}
+  theme_id: ${PRODUCTION_THEMEID}
+  store: ${PRODUCTION_URL}
