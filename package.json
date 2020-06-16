@@ -1,7 +1,7 @@
 {
   "name": "themequeen",
   "version": "1.0.0",
-  "description": "A utility to help build themes for Shopify.",
+  "description": "ThemeQueen is an alternative to Shopify's Themekit, written 100% in Node.js.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +13,6 @@
     "e-commerce"
   ],
   "author": "jepster-dk",
-  "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
     "chokidar": "^3.4.0",

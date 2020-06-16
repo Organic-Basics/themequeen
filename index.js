@@ -10,27 +10,31 @@ const readlineSync = require('readline-sync');
 // A better way of watching files
 const chokidar = require('chokidar');
 
-let themeSettings = { name: 'development' }
-let themeDir = 'theme/'
-
 // instantiate the watcher
 let watcher
-
 let fileQueueInterval
+let fileQueueRateLimit = 500
 
 const yaml = require('js-yaml');
 // Gets the arguments passed via the command line, such as '--env test-dk'
 const argv = require('yargs').argv;
 // Get the specified --env argument, if present. If not, then just use 'development'
-let themeEnv = (argv.env === undefined) ? 'development' : argv.env;
+let themeEnv = (argv.tqenv === undefined) ? 'development' : argv.env;
 // Get the specified argument, if present. If not, then just set to false
-let shouldOpen = (argv.open === undefined) ? false : true;
-let shouldForce = (argv.force === undefined) ? false : true;
+let shouldOpen = (argv.tqopen === undefined) ? false : true;
+let shouldForce = (argv.tqforce === undefined) ? false : true;
 
-// Load config for this environment
+// Default settings is development
+let themeSettings = { name: 'development' }
 let config
+let themeDir
 
-function init(themeDir) {
+function init(opts) {
+  if(!opts.themeDir) themeDir = 'theme/'
+  if(opts.isShopifyPlus) fileQueueRateLimit = 250
+
+    console.log(fileQueueRateLimit + themeDir)
+
   return new Promise((resolve, reject) => {
     try {
       require('dotenv').config({ path: themeDir + 'variables' })
@@ -57,7 +61,7 @@ function init(themeDir) {
 }
 
 function startFileQueue() {
-  // With a 500ms delay, update the files in that were put into the watch queue
+  // With a delay, update the files that were put into the watch queue
   fileQueueInterval = setInterval(function() {
     if(watchQueue.length > 0) {
       let next = watchQueue.shift()
@@ -67,11 +71,11 @@ function startFileQueue() {
         console.error(err)
       })
     }
-  }, 250)
+  }, fileQueueRateLimit)
 }
 
 function monitorFiles(filename, newThemeSettings) {
-  if(newThemeSettings === undefined) newThemeSettings = themeSettings
+  if(!newThemeSettings) newThemeSettings = themeSettings
   return new Promise((resolve, reject) => {
     console.log('👸 notices "' + filename.yellow + '" was changed.')
     fs.access(filename, fs.constants.F_OK, (err) => {
@@ -96,7 +100,7 @@ function monitorFiles(filename, newThemeSettings) {
 }
 
 function updateFile(filename, newThemeSettings) {
-  if(newThemeSettings === undefined) newThemeSettings = themeSettings
+  if(!newThemeSettings) newThemeSettings = themeSettings
   return new Promise((resolve, reject) => {
     FileType.fromFile(filename).then((fileDat) => {
       let encoding = 'utf8'
@@ -160,7 +164,7 @@ function updateFile(filename, newThemeSettings) {
 }
 
 function deleteFile(filename, newThemeSettings) {
-  if(newThemeSettings === undefined) newThemeSettings = themeSettings
+  if(!newThemeSettings) newThemeSettings = themeSettings
   return new Promise((resolve, reject) => {
     axios({
       method: 'delete',
@@ -186,7 +190,7 @@ function deleteFile(filename, newThemeSettings) {
 }
 
 async function uploadTheme(newThemeSettings) {
-  if(newThemeSettings === undefined) newThemeSettings = themeSettings
+  if(!newThemeSettings) newThemeSettings = themeSettings
   return new Promise((resolve, reject) => {
     axios({
       method: 'get',
@@ -281,7 +285,7 @@ async function uploadTheme(newThemeSettings) {
 }
 
 function confirmTheme(newThemeSettings) {
-  if(newThemeSettings === undefined) newThemeSettings = themeSettings
+  if(!newThemeSettings) newThemeSettings = themeSettings
   return new Promise((resolve, reject) => {
     axios({
       method: 'get',
@@ -342,7 +346,7 @@ function getAllFiles(dirPath, arrayOfFiles) {
 
 var watchQueue = []
 async function watch(newThemeSettings) {
-  if(newThemeSettings === undefined) newThemeSettings = themeSettings
+  if(!newThemeSettings) newThemeSettings = themeSettings
   return new Promise((resolve, reject) => {
     confirmTheme(newThemeSettings).then((response) => {
       startFileQueue()
@@ -402,7 +406,7 @@ async function watch(newThemeSettings) {
 }
 
 async function deploy(newThemeSettings) {
-  if(newThemeSettings === undefined) newThemeSettings = themeSettings
+  if(!newThemeSettings) newThemeSettings = themeSettings
   return new Promise((resolve, reject) => {
     confirmTheme(newThemeSettings).then((response) => {
       uploadTheme(newThemeSettings).then((response) => {
@@ -418,7 +422,7 @@ async function deploy(newThemeSettings) {
 }
 
 async function open(newThemeSettings) {
-  if(newThemeSettings === undefined) newThemeSettings = themeSettings
+  if(!newThemeSettings) newThemeSettings = themeSettings
   return new Promise((resolve, reject) => {
     var spawn = require('child_process').spawn;
     var url = `https://${newThemeSettings.store}?preview_theme_id=${newThemeSettings.theme_id}`
@@ -447,7 +451,7 @@ async function open(newThemeSettings) {
 }
 
 function link(newThemeSettings) {
-  if(newThemeSettings === undefined) newThemeSettings = themeSettings
+  if(!newThemeSettings) newThemeSettings = themeSettings
   return new Promise((resolve, reject) => {
     let url = `https://${newThemeSettings.store}?preview_theme_id=${newThemeSettings.theme_id}`
     resolve(`👸 has fetched the URL for the theme ${themeEnv.cyan}: ${url.yellow}`)
