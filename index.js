@@ -162,12 +162,6 @@ function updateFile(filename, newThemeSettings) {
 function deleteFile(filename, newThemeSettings) {
   if(newThemeSettings === undefined) newThemeSettings = themeSettings
   return new Promise((resolve, reject) => {
-    if(filename.includes('.woff')) {
-      process.stdout.write('\n')
-      console.log('👸 currently doesn\'t support .woff files. Sorry about that!'.red)
-      resolve('👸 currently doesn\'t support .woff files. Sorry about that!'.red)
-    }
-
     axios({
       method: 'delete',
       url: `https://${newThemeSettings.store}/admin/api/2020-01/themes/${newThemeSettings.theme_id}/assets.json?asset[key]=${filename}`,
