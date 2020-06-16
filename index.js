@@ -32,7 +32,7 @@ let shouldForce = (argv.force === undefined) ? false : true;
 // Load config for this environment
 let config
 
-function init() {
+function init(themeDir) {
   config = yaml.safeLoad(fs.readFileSync(themeDir + 'config.yml', 'utf8'));
   if(config[themeEnv] !== undefined) {
     let themeVals = config[themeEnv]
