@@ -1,6 +1,6 @@
 {
   "name": "themequeen",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ThemeQueen is an alternative to Shopify's Themekit, written 100% in Node.js.",
   "main": "index.js",
   "scripts": {
