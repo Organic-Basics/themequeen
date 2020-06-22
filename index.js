@@ -346,7 +346,6 @@ var watchQueue = []
 async function watch(newThemeSettings) {
   if(!newThemeSettings) newThemeSettings = themeSettings
   return new Promise((resolve, reject) => {
-    console.log(newThemeSettings)
     confirmTheme(newThemeSettings).then((response) => {
       startFileQueue()
       console.log('👸 is pleased. '.green + 'Started watching files in the "' + themeDir + '" directory.')
