@@ -43,12 +43,14 @@ function init(opts) {
         for(let val in themeVals) {
           if(themeVals[val] !== undefined) {
               let themeEnvVal = themeVals[val]
-              let themeName = themeEnvVal.replace(/[\{\}\$]/g, '')
-              let themeVal = process.env[themeName]
+              let themeEnvKey = themeEnvVal.replace(/[\{\}\$]/g, '')
+              let themeVal = process.env[themeEnvKey]
+
               if(val === 'theme_id') themeVal = parseInt(themeVal)
               themeSettings[val] = themeVal
           }
         }
+        themeSettings.name = themeEnv
       }
 
       resolve('ThemeQueen init successfully finished.')
