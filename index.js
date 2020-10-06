@@ -134,7 +134,7 @@ function updateFile(filename, newThemeSettings) {
         axios({
           method: 'put',
           data: transferData,
-          url: `https://${newThemeSettings.store}/admin/api/2020-01/themes/${newThemeSettings.theme_id}/assets.json`,
+          url: `https://${newThemeSettings.store}/admin/api/2020-10/themes/${newThemeSettings.theme_id}/assets.json`,
           headers: {
             'User-Agent': 'Gulp',
             'Content-Type': 'application/json',
@@ -168,7 +168,7 @@ function deleteFile(filename, newThemeSettings) {
   return new Promise((resolve, reject) => {
     axios({
       method: 'delete',
-      url: `https://${newThemeSettings.store}/admin/api/2020-01/themes/${newThemeSettings.theme_id}/assets.json?asset[key]=${filename}`,
+      url: `https://${newThemeSettings.store}/admin/api/2020-10/themes/${newThemeSettings.theme_id}/assets.json?asset[key]=${filename}`,
       headers: {
         'X-Shopify-Access-Token': `${newThemeSettings.password}`
       }
@@ -194,7 +194,7 @@ async function uploadTheme(newThemeSettings) {
   return new Promise((resolve, reject) => {
     axios({
       method: 'get',
-      url: `https://${newThemeSettings.store}/admin/api/2020-01/themes/${newThemeSettings.theme_id}/assets.json`,
+      url: `https://${newThemeSettings.store}/admin/api/2020-10/themes/${newThemeSettings.theme_id}/assets.json`,
       headers: {
         'X-Shopify-Access-Token': `${newThemeSettings.password}`
       }
@@ -289,7 +289,7 @@ function confirmTheme(newThemeSettings) {
   return new Promise((resolve, reject) => {
     axios({
       method: 'get',
-      url: `https://${newThemeSettings.store}/admin/api/2020-01/themes.json`,
+      url: `https://${newThemeSettings.store}/admin/api/2020-10/themes.json`,
       headers: {
         'X-Shopify-Access-Token': `${newThemeSettings.password}`
       }
