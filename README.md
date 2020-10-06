@@ -4,7 +4,7 @@
 
 Themequeen is an alternative to Shopify's Themekit, written 100% in Node.js.
 
-![Themequeen in action](https://github.com/Organic-Basics/Themequeen/raw/master/Themequeen.gif "Themequeen in action")
+![Themequeen in action](https://github.com/Organic-Basics/Themequeen/raw/master/themequeen.gif "Themequeen in action")
 
 ## Installation
 
