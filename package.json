@@ -24,7 +24,7 @@
     "dotenv": "^8.2.0",
     "file-type": "^14.6.2",
     "js-yaml": "^3.14.0",
-    "node-notifier": "^7.0.1",
+    "node-notifier": "^8.0.1",
     "readline-sync": "^1.4.10",
     "yargs": "^15.3.1"
   }
