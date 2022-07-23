@@ -22,7 +22,7 @@
     "chokidar": "^3.4.0",
     "colors": "^1.4.0",
     "dotenv": "^8.2.0",
-    "file-type": "^14.6.2",
+    "file-type": "^16.5.4",
     "js-yaml": "^3.14.0",
     "node-notifier": "^7.0.1",
     "readline-sync": "^1.4.10",
